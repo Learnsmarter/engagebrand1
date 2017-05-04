@@ -1,0 +1,54 @@
+<apex:page showHeader="false" docType="html-5.0" applyBodyTag="false" applyHtmlTag="false" standardStylesheets="false">
+    <html>
+    <head>
+        <title>Learnsmarter</title>
+        <meta content="width=device-width, user-scalable=no, initial-scale=1" name="viewport" />
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+
+    <div id="head-container">
+        <div class="content-width">
+            <div id="logo"></div>
+            <div id="search">
+                <input type="text" value="" placeholder="Search training catalog..." />
+            </div>
+        </div>
+    </div>
+
+    <div id="head-menu">
+        <div class="content-width">
+                    <span class="burger">
+                    	<apex:outputLink value="#" onclick="$j('#head-menu').toggleClass('dropdown');"></apex:outputLink>
+                    </span>
+
+            <span class="links">
+                        <apex:outputLink value="{!URLFOR($Page.lsi__SiteLogin)}">Home</apex:outputLink>
+                        <apex:outputLink value="{!URLFOR($Page.lsi__MyAccount)}" rendered="{!NOT(ISPICKVAL($User.UserType, 'Guest'))}">My Account</apex:outputLink>
+                        <apex:outputLink value="{!URLFOR($Page.lsi__MyBasket)}">My Basket</apex:outputLink>
+                    </span>
+
+            <span class="head-user">
+                        <apex:outputPanel layout="none" rendered="{!NOT(ISPICKVAL($User.UserType, 'Guest'))}">
+                            Logged in as<apex:outputLink value="{!URLFOR($Page.lsi__ViewPerson, null, [id=$User.ContactId])}">{!$User.FirstName+' '+$User.LastName}</apex:outputLink>|<apex:outputLink value="/secur/logout.jsp">Log out</apex:outputLink>
+                        </apex:outputPanel>
+
+                        <apex:outputPanel layout="none" rendered="{!ISPICKVAL($User.UserType, 'Guest')}">
+                        	<apex:outputLink value="{!URLFOR($Page.lsi__SiteLogin)}">Log in</apex:outputLink>&nbsp;|&nbsp;
+                        	<apex:outputLink value="{!URLFOR($Page.lsi__SiteRegister)}">Register</apex:outputLink>
+                        </apex:outputPanel>
+                    </span>
+        </div>
+    </div>
+
+    <div id="template-body-container">
+        <apex:insert name="body" />
+    </div>
+
+    <div id="foot-container">
+
+    </div>
+
+    </body>
+    </html>
+</apex:page>
